@@ -5,6 +5,9 @@
 - npm i --save-dev prettier eslint eslint-config-prettier eslint-plugin-prettier
 - npm i --save-dev nodemon
 
+- npm i --save sequelize pg pg-hstore
+
+
 #### client server
 - create a client folder
 - in client folder create and index.html file
