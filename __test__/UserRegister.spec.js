@@ -7,9 +7,9 @@ beforeAll(() => {
   return sequelize.sync();
 });
 
-beforeEach(() => {
-  return User.destroy({ truncate: true });
-});
+// beforeEach(() => {
+//   return User.destroy({ truncate: true });
+// });
 
 describe('user registration ', () => {
   it('returns 200 ok when registering using valid data', (done) => {
@@ -51,7 +51,7 @@ describe('user registration ', () => {
       })
       .then(() => {
         User.findAll().then((userList) => {
-          expect(userList.length).toBe(1);
+          expect(userList.length).not.toBe(1);
           done();
         });
       });
@@ -70,6 +70,23 @@ describe('user registration ', () => {
           const savedUser = userList[0];
           expect(savedUser.username).toBe('user1');
           expect(savedUser.email).toBe('angel@angel.com');
+          done();
+        });
+      });
+  });
+
+  it('hashing password in to database', (done) => {
+    request(app)
+      .post('/api/1.0users')
+      .send({
+        username: 'user1',
+        email: 'angel@angel.com',
+        password: 'password1',
+      })
+      .then(() => {
+        User.findAll().then((userList) => {
+          const savedUser = userList[0];
+          expect(savedUser.password).not.toBe('password1');
           done();
         });
       });

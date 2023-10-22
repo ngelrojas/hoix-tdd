@@ -6,7 +6,7 @@
 - npm i --save-dev nodemon
 
 - npm i --save sequelize pg pg-hstore
-
+- npm i --save bcrypt
 
 #### client server
 - create a client folder
