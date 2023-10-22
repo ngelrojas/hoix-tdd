@@ -1,10 +1,13 @@
 const Sequelize = require('sequelize');
+const config = require('config');
 
-const sequelize = new Sequelize('hoixdb', 'postgres', 'admin', {
-  dialect: 'postgres',
-  host: 'localhost',
-  port: 5432,
-  logging: false,
+const dbConfig = config.get('connection');
+
+const sequelize = new Sequelize(dbConfig.database, dbConfig.username, dbConfig.password, {
+  dialect: dbConfig.dialect,
+  host: dbConfig.host,
+  port: dbConfig.port,
+  logging: dbConfig.logging,
 });
 
 module.exports = sequelize;

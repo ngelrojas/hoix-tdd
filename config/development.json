@@ -1,0 +1,11 @@
+{
+  "connection": {
+    "database": "hoixdb",
+    "username": "postgres",
+    "password": "admin",
+    "dialect": "postgres",
+    "host": "localhost",
+    "port": 5432,
+    "logging": false
+  }
+}
