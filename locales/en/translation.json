@@ -8,5 +8,6 @@
    "password_pattern" : 
   "Password must be at least 1 uppercase, 1 lowercase letter and 1 number",
   "email_inuse": "Email in use",
-  "user_create_success" : "user created"
+  "user_create_success" : "user created",
+  "email_failure": "Email Failure"
 }
