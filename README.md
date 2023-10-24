@@ -9,6 +9,8 @@
 - npm i --save bcrypt
 - npm i express-validator
 - npm i i18next i18next-fs-backend i18next-http-middleware
+- npm i nodemailer
+- npm i nodemailer-stub
 
 #### client server
 - create a client folder

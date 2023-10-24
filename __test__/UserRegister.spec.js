@@ -2,6 +2,7 @@ const request = require('supertest');
 const app = require('../src/app');
 const User = require('../src/user/User');
 const sequelize = require('../src/config/database');
+const nodemailerStub = require('nodemailer-stub');
 
 beforeAll(() => {
   return sequelize.sync();
@@ -159,6 +160,14 @@ describe('user registration ', () => {
     await postUser();
     const userList = await User.findAll();
     expect(userList[0].inactive).toBe(true);
+  });
+
+  it('send email to account activation email with activationToken', async () => {
+    await postUser();
+    const lastMail = nodemailerStub.interactsWithMail.lastMail();
+    expect(lastMail.to[0]).toBe(validUser.email);
+    const users = await User.findAll();
+    expect(lastMail.content).toContain(users[0].activationToken);
   });
 });
 
