@@ -8,7 +8,7 @@
 - npm i --save sequelize pg pg-hstore
 - npm i --save bcrypt
 - npm i express-validator
-
+- npm i i18next i18next-fs-backend i18next-http-middleware
 
 #### client server
 - create a client folder
