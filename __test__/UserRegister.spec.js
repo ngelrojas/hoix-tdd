@@ -142,6 +142,24 @@ describe('user registration ', () => {
       expect(body.validationErrors[field]).toBe(expectedMessage);
     },
   );
+  it('create user in inactive mode', async () => {
+    await postUser();
+    const userList = await User.findAll();
+    expect(userList[0].inactive).toBe(true);
+  });
+
+  it('create user in inactive mode even the request body contains inactive mode', async () => {
+    const newUser = { ...validUser, inactive: false };
+    await postUser(newUser);
+    const users = await User.findAll();
+    expect(users[0].inactive).toBe(true);
+  });
+
+  it('create user in active mode', async () => {
+    await postUser();
+    const userList = await User.findAll();
+    expect(userList[0].inactive).toBe(true);
+  });
 });
 
 describe('internationalization', () => {
