@@ -263,3 +263,62 @@ describe('internationalization', () => {
     mockSendAccountActivation.mockRestore();
   });
 });
+
+describe('account activation', () => {
+  it('activates the account when correctt token is sent', async () => {
+    await postUser();
+    const users = await User.findAll();
+    const token = users[0].activationToken;
+    await request(app).post(`/api/1.0/users/token/${token}`).send();
+    const usersAfterActivation = await User.findAll();
+    expect(usersAfterActivation[0].inactive).toBe(false);
+  });
+
+  it('removes the token from user table after successful activation', async () => {
+    await postUser();
+    const users = await User.findAll();
+    const token = users[0].activationToken;
+
+    await request(app).post(`/api/1.0/users/token/${token}`).send();
+    const usersAfterActivation = await User.findAll();
+    expect(usersAfterActivation[0].inactive).toBeFalsy();
+  });
+
+  it('does not activate the account when token is wrong', async () => {
+    await postUser();
+    const token = 'angel-token-wrong';
+
+    await request(app).post(`/api/1.0/users/token/${token}`).send();
+    const usersAfterActivation = await User.findAll();
+    expect(usersAfterActivation[0].inactive).toBe(true);
+  });
+
+  it('returns bad request when tokne is wrong', async () => {
+    await postUser();
+    const token = 'angel-token-wrong';
+    const response = await request(app).post(`/api/1.0/users/token/${token}`).send();
+    expect(response.status).toBe(400);
+  });
+  it.each`
+    language | tokenStatus  | message
+    ${'fr'}  | ${'wrong'}   | ${"Échec de l'activation du compte"}
+    ${'en'}  | ${'wrong'}   | ${'Invalid token'}
+    ${'fr'}  | ${'correct'} | ${"Succès de l'activation du compte"}
+    ${'en'}  | ${'correct'} | ${'Account is activated'}
+  `(
+    'return $message when token is $tokenStatus and language is $language',
+    async ({ language, tokenStatus, message }) => {
+      await postUser();
+      let token = 'angel-token-wrong';
+      if (tokenStatus === 'correct') {
+        let users = await User.findAll();
+        token = users[0].activationToken;
+      }
+      const response = await request(app)
+        .post(`/api/1.0/users/token/${token}`)
+        .set('Accept-Language', language)
+        .send();
+      expect(response.body.message).toBe(message);
+    },
+  );
+});
