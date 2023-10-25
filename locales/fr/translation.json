@@ -9,5 +9,7 @@
   "Le mot de passe doit comporter au moins 1 lettre majuscule, 1 lettre minuscule et 1 chiffre",
   "email_inuse": "Adresse e-mail déjà utilisée",
   "user_create_success": "Utilisateur créé",
-  "email_failure": "Échec de l'e-mail"
+  "email_failure": "Échec de l'e-mail",
+  "account_activation_failure": "Échec de l'activation du compte",
+  "account_activation_success": "Succès de l'activation du compte"
 }
