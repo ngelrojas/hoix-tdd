@@ -8,5 +8,12 @@
     "port": 5432,
     "logging": false,
     "storage": ":memory:"
+  },
+  "mail": {
+    "host": "localhost",
+    "port": 8587,
+    "tls": {
+      "rejectUnauthorized": false
+    }
   }
 }

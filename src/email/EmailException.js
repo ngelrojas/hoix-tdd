@@ -1,4 +1,4 @@
-module.exports = function EmailException(message) {
-  this.message = message;
-  this.name = 'EmailException';
+module.exports = function EmailException() {
+  this.message = 'email_failure';
+  this.status = 502;
 };
