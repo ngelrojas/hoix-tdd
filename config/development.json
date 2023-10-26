@@ -7,5 +7,13 @@
     "host": "localhost",
     "port": 5432,
     "logging": false
+  },
+  "mail": {
+    "host": "smtp.ethereal.email",
+    "port": 587,
+    "auth": {
+      "user": "royal.white@ethereal.email",
+      "pass": "AXBDwNtrcqpSQBwH1r"
+    }
   }
 }
